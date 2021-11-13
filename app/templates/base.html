@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" class="h-100">
+{% import "bootstrap/wtf.html" as wtf %}
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+
+    <link rel="shortcut icon" href="/static/pic/C2O.png">
+
+    <meta name="description" content="">
+    <meta name="author" content="Crypto Water">
+    <title>Crypto Water</title>
+
+    <!--  Link Preview  -->
+    <meta property="og:url"                content="https://app.pizzaday.si" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="CryptoWater" />
+    <meta property="og:description"        content="Scan your bottle to validate WaterHash" />
+    <meta property="og:image"              content="http://cryptowater.app/static/pic/CryptoWater-logo-coin_256x256.png" />
+    <link rel="image_src" href="/static/pic/CryptoWater-logo-coin_256x256.png">
+
+
+</head>
+
+<body class="d-flex flex-column h-100">
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark navbar-static-top bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="https://cryptowater.app">
+                <img src="/static/pic/C2O.png" alt="" width="30" height="30">
+                CryptoWater.app
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                    aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://cryptowater.si/about" target="_blank">About CryptoWater</a>
+                      </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<main class="flex-shrink-0">
+        {% block main_content %}
+        <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+        {% endblock %}
+</main>
+
+
+<footer class="footer mt-auto py-3 bg-light">
+    <div class="container text-center">
+        <span class="text-muted">© 2021 CRYPTOWATER</span>
+    </div>
+</footer>
+
+{% block modals %}
+{% endblock %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
+        crossorigin="anonymous"></script>
+
+<script src="static/js/html5-qrcode.min.js"></script>
+
+
+<script>
+    function onScanSuccess(qrMessage) {
+        // handle the scanned code as you like, for example:
+        console.log(`QR matched = ${qrMessage}`);
+        document.getElementById("address").value = qrMessage;
+        document.getElementById("form_address_submit").submit();
+    }
+
+    function onScanFailure(error) {
+        // handle scan failure, usually better to ignore and keep scanning.
+        // for example:
+        console.warn(`QR error = ${error}`);
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+        "reader", {fps: 10, qrbox: 250}, /* verbose= */ false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+</script>
+
+</body>
+</html>

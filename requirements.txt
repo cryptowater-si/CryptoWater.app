@@ -1,0 +1,32 @@
+# Requirements for Contract APP
+
+## core app
+flask
+
+## Web GUIs
+wtforms[email]
+flask_wtf
+flask_bootstrap
+
+## Sentry (application monitoring)
+sentry-sdk[flask]
+blinker
+
+# utils
+requests
+flask-qrcode
+flask_apscheduler
+flask_csv
+arrow
+
+## Notifications
+flask_toastr
+
+## Security
+werkzeug
+cryptography
+flask-talisman
+
+## Prod deploy
+gunicorn
+

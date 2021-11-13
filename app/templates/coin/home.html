@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+
+{% block main_content %}
+<div class="container">
+    <div class="row text-center mt-5">
+        <div class="col-md-3"></div>
+        <div class="col-md-5">
+            <form id="form_address_submit" method="POST" action="/" class="pl-2">
+                {{ form.csrf_token }}
+                <div class="input-group mb-3">
+                    <button class="btn btn-outline-secondary" type="button" id="button-addon1"
+                            data-bs-toggle="modal"
+                            data-bs-target="#scan_address_modal">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16"
+                             height="16"
+                             fill="currentColor" class="bi bi-upc-scan"
+                             viewBox="0 0 16 16">
+                            <path d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z"/>
+                        </svg>
+                    </button>
+                    <input id="address" name="address" type="text" class="form-control" placeholder="Address"
+                           aria-label="Address"
+                           aria-describedby="basic-addon1">
+                    <button class="btn btn-outline-success" type="submit" id="check_address" value="Check"
+                            class="form-control">Check
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-auto"></div>
+    </div>
+
+    {% if data %}
+    <div class="row text-center">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div class="card"
+            ">
+            <div class="card-header">
+                {{ data["coin"] }}
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <div class="ms-2 me-auto text-center">
+                        <div class="fw-bold">Address:</div>
+                        <span>{{ data["address"] }}</span><br>
+                        <img src="{{ data['coin']|Logo }}" alt="" width="30" height="30">
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="ms-2 me-auto text-center">
+                        <div class="fw-bold">Balance:</div>
+                        <span>{{ data["balance"]|Crypto }} {{ data["coin"] }}</span>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <div class="ms-2 me-auto text-center">
+                        <img src="/static/pic/C2O.png" alt="" width="30" height="30">
+                        <div class="fw-bold">WaterHash:</div>
+                        <span>{{ data["firstBlockTimestamp"]|TimestampDateTime }}</span><br>
+                        <span class="text-muted">{{ data["firstBlockTimestamp"]|Timestamp }}</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-auto"></div>
+</div>
+
+{% else %}
+    <div class="row text-center">
+        <img src="/static/pic/CryptoWater-logo-coin_metal-blue-600.png" class="img-responsive">
+    </div>
+{% endif %}
+</div>
+{% endblock %}
+
+{% block modals %}
+<div class="modal" id="scan_address_modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Scan Address</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="reader" width="600px" height="600px"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
