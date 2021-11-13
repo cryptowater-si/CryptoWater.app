@@ -1,2 +1,2 @@
-# Lana-QR
+# CryptoWater.app
 
