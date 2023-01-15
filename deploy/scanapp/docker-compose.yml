@@ -1,0 +1,25 @@
+version: '3'
+
+networks:
+  web:
+    external: true
+
+services:
+  app:
+    image: "registry.gitlab.com/pirc-lana/lana-qr:${APP_VERSION}"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.frontend.rule=Host:cryptowater.app"
+      - "traefik.port=5000"
+    env_file:
+      - .env
+    volumes:
+      - ./data/logs:/home/logs
+      - ./data/appdata:/home/appdata

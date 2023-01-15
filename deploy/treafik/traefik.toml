@@ -1,0 +1,43 @@
+defaultEntryPoints = ["http", "https"]
+
+[entryPoints]
+  [entryPoints.console]
+    address = ":8080"
+  [entryPoints.console.auth]
+    [entryPoints.console.auth.basic]
+      users = ["admin:$apr1$gzbQkpF/$mhSCzmNnbDYKzxaooHTeJ0"]
+  [entryPoints.http]
+    address = ":80"
+      [entryPoints.http.redirect]
+        entryPoint = "https"
+  [entryPoints.https]
+    address = ":443"
+      [entryPoints.https.tls]
+
+# This responds to traefik console, entry point represents [entryPoints.console.auth.basic]
+# subdomain is still defined in yml file with front rule onHost
+[api]
+entrypoint="console"
+
+# SSL cert
+[acme]
+email = "admin@cryptowater.app"
+# Save to (file must be chmod 600)
+storage = "acme.json"
+
+# Test server, comment it for production
+# caServer = "https://acme-staging-v02.api.letsencrypt.org/directory"
+# When new onHostRule is seen, will create new subdomain ssl
+onHostRule = true
+entryPoint = "https"
+[acme.httpChallenge]
+  entryPoint = "http"
+
+# watch will monitor config file for changes,
+# network is pre-existing docker network,
+# will not be exposed by default (requires labels to expose)
+[docker]
+domain = "cryptowater.app"
+watch = true
+network = "web"
+exposedByDefault = false
